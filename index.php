@@ -33,15 +33,15 @@
         <input type="password" id="confirmPassword" name="confirmPassword" required>
     </div>
     <button type="submit">Регистрация</button>
-    <div class="message"></div>
 </form>
+<div class="message"></div>
 
 <script>
     $(document).ready(function(){
         $("#registrationForm").submit(function(event){
             event.preventDefault();
 
-            var formData = {
+            let formData = {
                 firstName: $("#firstName").val(),
                 lastName: $("#lastName").val(),
                 email: $("#email").val(),
@@ -56,6 +56,7 @@
                 dataType: "json",
                 encode: true,
                 success: function(response){
+                    console.log(response);
                     if(response.success){
                         $("#registrationForm").hide();
                         $(".message").html("<p class='success'>Регистрация успешна!</p>");
