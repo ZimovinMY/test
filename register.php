@@ -9,19 +9,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $response = ['success' => false, 'message' => ''];
 
-    // Простая валидация
+    // Валидация
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $response['message'] = 'Неверный формат email.';
     } elseif ($password !== $confirmPassword) {
         $response['message'] = 'Пароли не совпадают.';
     } else {
-        // Массив уже существующих пользователей
+        // Массив существующих пользователей
         $existingUsers = [
             ['id' => 1, 'name' => 'Mikhail', 'email' => 'mikhail@example.com'],
             ['id' => 2, 'name' => 'Dmitry', 'email' => 'dmitry@example.com']
         ];
 
-        // Проверка наличия email в массиве существующих пользователей
+        // Проверка наличия email в массиве пользователей
         $userExists = false;
         foreach ($existingUsers as $user) {
             if ($user['email'] === $email) {
@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $response['message'] = 'Регистрация успешна!';
 
             // Логирование результата проверки
+            date_default_timezone_set('Europe/Moscow');
             $log = "[" . date('Y-m-d H:i:s') . "] Регистрация успешна: " . $email . PHP_EOL;
             file_put_contents('registration.log', $log, FILE_APPEND);
         }
